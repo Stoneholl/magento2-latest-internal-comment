@@ -1,0 +1,65 @@
+<?php
+/** @var \Stoneholl\LatestInternalComment\Block\Adminhtml\Summary $block */
+$state = $block->getSummaryState();
+if ($state['status'] === 'hidden') {
+    return;
+}
+$escaper = $block->getOutputEscaper();
+?>
+<section class="admin__page-section stoneholl-latest-internal-comment"
+         aria-labelledby="stoneholl-latest-internal-comment-title">
+    <div class="admin__page-section-title">
+        <h2 id="stoneholl-latest-internal-comment-title" class="title">
+            <?= $escaper->escapeHtml(__('Latest recorded internal history comment')) ?>
+        </h2>
+    </div>
+    <?php if ($state['status'] === 'unavailable'): ?>
+        <p><?= $escaper->escapeHtml(__('Temporarily unavailable')) ?></p>
+    <?php else: ?>
+        <p><?= $escaper->escapeHtml(__('Hidden from the customer and marked not notified in Magento history')) ?></p>
+        <?php if ($state['status'] === 'ready'): ?>
+            <p><?= $escaper->escapeHtml($block->getSourceDate($state['created_at'])) ?></p>
+            <div class="stoneholl-latest-internal-comment-panel"
+                 data-mage-init='{"Stoneholl_LatestInternalComment/js/comment":{}}'>
+                <?php $expandable = $state['preview']['truncated'] && is_string($state['full_text']); ?>
+                <?php $excerpt = $state['preview']['unavailable']
+                    ? (string) __('Comment preview unavailable — expand or view order history')
+                    : $state['preview']['text'] . ($state['preview']['truncated'] ? '…' : ''); ?>
+                <p id="stoneholl-latest-internal-comment-text"
+                   class="stoneholl-latest-internal-comment-text"
+                   tabindex="0" role="region" aria-label="<?= $escaper->escapeHtmlAttr(__('Comment text')) ?>"
+                   data-role="comment-text">
+                    <span data-role="comment-excerpt"><?= $escaper->escapeHtml($excerpt) ?></span>
+                    <?php if ($expandable): ?>
+                        <span data-role="comment-full" hidden><?= $escaper->escapeHtml($state['full_text']) ?></span>
+                    <?php endif; ?>
+                </p>
+                <?php if ($expandable): ?>
+                    <button type="button" class="action-default"
+                            data-role="comment-toggle" aria-expanded="false"
+                            aria-controls="stoneholl-latest-internal-comment-text">
+                        <?= $escaper->escapeHtml(__('Expand')) ?>
+                    </button>
+                <?php endif; ?>
+                <?php if ($state['preview']['truncated'] && !$expandable): ?>
+                    <p><?= $escaper->escapeHtml(__('View the full comment in order history')) ?></p>
+                <?php endif; ?>
+            </div>
+        <?php else: ?>
+            <p><?= $escaper->escapeHtml(__('No qualifying internal comment in the searched history')) ?></p>
+        <?php endif; ?>
+        <p><?= $state['limited']
+            ? $escaper->escapeHtml(__('Searched the latest 200 history entries'))
+            : $escaper->escapeHtml(__('Searched all %1 history entries', $state['searched'])) ?></p>
+    <?php endif; ?>
+    <p><?= $escaper->escapeHtml(__('As of page load')) ?></p>
+    <p>
+        <a href="#order_history_block"><?= $escaper->escapeHtml(__('View order history')) ?></a>
+        <?php $refreshUrl = $block->getRefreshUrl(); ?>
+        <?php if ($refreshUrl !== ''): ?>
+            <a href="<?= $escaper->escapeUrl($refreshUrl) ?>">
+                <?= $escaper->escapeHtml(__('Refresh order page')) ?>
+            </a>
+        <?php endif; ?>
+    </p>
+</section>

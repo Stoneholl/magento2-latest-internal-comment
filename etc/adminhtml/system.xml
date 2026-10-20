@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section
+            id="stoneholl_latest_internal_comment"
+            translate="label"
+            sortOrder="90"
+            showInDefault="1"
+            showInWebsite="0"
+            showInStore="0">
+            <label>Latest Internal Comment</label>
+            <tab>stoneholl</tab>
+            <resource>Stoneholl_LatestInternalComment::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field
+                    id="enabled"
+                    translate="label comment"
+                    type="select"
+                    sortOrder="10"
+                    showInDefault="1"
+                    showInWebsite="0"
+                    showInStore="0"
+                    canRestore="1">
+                    <label>Enable Latest Internal Comment</label>
+                    <comment>
+                        Show a read-only excerpt of qualifying order history. Requires both order-view and
+                        Latest Internal Comment view permissions. This ACL controls only the summary,
+                        not Magento's native history. Verify third-party order restrictions before enabling.
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Stoneholl\LatestInternalComment\Model\Config\Enabled</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

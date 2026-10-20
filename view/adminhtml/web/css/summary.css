@@ -1,0 +1,36 @@
+.stoneholl-latest-internal-comment-text {
+    background: #f8f8f8;
+    border: 1px solid #adadad;
+    border-left: 3px solid #777;
+    box-sizing: border-box;
+    color: #303030;
+    max-height: 32rem;
+    overflow: auto;
+    padding: 1.2rem 1.5rem;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+
+.stoneholl-latest-internal-comment-text > span {
+    display: block;
+    white-space: pre-wrap;
+}
+
+.stoneholl-latest-internal-comment-text:focus {
+    outline: 2px solid #007bdb;
+    outline-offset: 2px;
+}
+
+.stoneholl-latest-internal-comment [hidden] {
+    display: none;
+}
+
+.stoneholl-latest-internal-comment a + a {
+    margin-left: 1.5rem;
+}
+
+@media (max-width: 767px) {
+    .stoneholl-latest-internal-comment {
+        max-width: calc(100vw - 16rem);
+    }
+}
