@@ -15,7 +15,7 @@ class ProductProvider implements ProductProviderInterface
             'latest-internal-comment',
             'Stoneholl Latest Internal Comment',
             ['Stoneholl_LatestInternalComment'],
-            ['stoneholl/module-latest-internal-comment']
+            ['stoneholl/magento2-latest-internal-comment']
         )];
     }
 }

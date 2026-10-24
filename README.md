@@ -46,7 +46,7 @@ storefront/API additions, expansion endpoint or order mutation are included. Nat
 Install the reviewed Composer package with its mandatory free offline Core dependency:
 
 ```bash
-composer require stoneholl/module-latest-internal-comment
+composer require stoneholl/magento2-latest-internal-comment
 bin/magento module:enable Stoneholl_Core Stoneholl_LatestInternalComment
 bin/magento setup:upgrade
 bin/magento setup:di:compile
@@ -131,3 +131,16 @@ classes are not public APIs; a future grid/bulk consumer needs its own query and
 Disable `Stoneholl_LatestInternalComment`, remove its Composer package, and run the deployment commands appropriate to
 your installation. Remove only its `stoneholl_latest_internal_comment/` configuration rows through your established
 configuration management procedure. Native orders/history are untouched. Keep Core while another module depends on it.
+
+## Composer package naming
+
+The canonical Composer name is `stoneholl/magento2-latest-internal-comment`. The former `stoneholl/module-latest-internal-comment` name is a legacy identity. The renamed package replaces that identity at `self.version`, so Composer installs one copy of the Magento module. Existing immutable releases remain unchanged.
+
+When migrating an existing root requirement, back up the project and remove the old requirement without updating, then require the new package with its dependencies:
+
+```bash
+composer remove stoneholl/module-latest-internal-comment --no-update
+composer require stoneholl/magento2-latest-internal-comment --with-all-dependencies
+```
+
+Run the Magento upgrade, compilation and cache commands documented above according to your deployment mode. Keep native `Stoneholl_*` module names and configuration paths unchanged.
