@@ -1,6 +1,6 @@
 {
     "name": "stoneholl/magento2-latest-internal-comment",
-    "description": "Read-only bounded internal order history summary for Magento Admin.",
+    "description": "Read-only bounded internal order history summary for Magento 2 Admin.",
     "type": "magento2-module",
     "license": "MIT",
     "require": {
@@ -24,5 +24,17 @@
     },
     "replace": {
         "stoneholl/module-latest-internal-comment": "self.version"
-    }
+    },
+    "keywords": [
+        "magento2",
+        "magento",
+        "magento 2",
+        "magento2 module",
+        "magento open source",
+        "magento 2 extension",
+        "admin",
+        "orders",
+        "order history",
+        "internal comments"
+    ]
 }
